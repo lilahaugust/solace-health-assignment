@@ -1,91 +1,90 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Table from "./components/Table/Table";
+import { SOLACE_ADVOCATES_TABLE_HEADERS, ADVOCATES_PAGE_TITLE, SEARCH_PLACEHOLDER, BANNER_TEXT, BANNER_CTA, EMAIL_SUBJECT_LINE } from "./constants";
+import { AdvocateType } from "./types";
+import "./page.css";
+import Logo from "../../public/Logo";
 
 export default function Home() {
-  const [advocates, setAdvocates] = useState([]);
-  const [filteredAdvocates, setFilteredAdvocates] = useState([]);
+  const [advocates, setAdvocates] = useState<AdvocateType[]>([]);
+  const [filteredAdvocates, setFilteredAdvocates] = useState<AdvocateType[]>([]);
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    console.log("fetching advocates...");
-    fetch("/api/advocates").then((response) => {
+    fetch("/api/advocates").then((response) =>
       response.json().then((jsonResponse) => {
-        setAdvocates(jsonResponse.data);
-        setFilteredAdvocates(jsonResponse.data);
-      });
-    });
+        const data: AdvocateType[] = jsonResponse.data;
+        setAdvocates(data);
+        setFilteredAdvocates(data);
+      })
+    );
   }, []);
 
-  const onChange = (e) => {
-    const searchTerm = e.target.value;
-
-    document.getElementById("search-term").innerHTML = searchTerm;
-
-    console.log("filtering advocates...");
-    const filteredAdvocates = advocates.filter((advocate) => {
-      return (
-        advocate.firstName.includes(searchTerm) ||
-        advocate.lastName.includes(searchTerm) ||
-        advocate.city.includes(searchTerm) ||
-        advocate.degree.includes(searchTerm) ||
-        advocate.specialties.includes(searchTerm) ||
-        advocate.yearsOfExperience.includes(searchTerm)
-      );
-    });
-
-    setFilteredAdvocates(filteredAdvocates);
+  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = e.target.value.toLowerCase();
+    setSearchValue(e.target.value); // Update the search input value
+    const filtered = advocates.filter((advocate) =>
+      Object.values(advocate).some((value) =>
+        Array.isArray(value)
+          ? value.some((item) => item.toString().toLowerCase().includes(searchTerm))
+          : value.toString().toLowerCase().includes(searchTerm)
+      )
+    );
+    setFilteredAdvocates(filtered);
   };
 
-  const onClick = () => {
-    console.log(advocates);
+  const resetSearch = () => {
+    setSearchValue("");
     setFilteredAdvocates(advocates);
+    const searchInput = document.querySelector<HTMLInputElement>("input[type='text']");
+    if (searchInput) {
+      searchInput.value = "";
+    }
   };
+
+  const handleBannerCtaClick = () => {
+      const email = "lilahraeaugust@gmail.com";
+      const subject = EMAIL_SUBJECT_LINE;
+  
+      const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+  
+      window.location.href = mailtoUrl;
+  }
 
   return (
-    <main style={{ margin: "24px" }}>
-      <h1>Solace Advocates</h1>
-      <br />
-      <br />
-      <div>
-        <p>Search</p>
+    <>
+      <div className="banner-green">
         <p>
-          Searching for: <span id="search-term"></span>
+          {BANNER_TEXT}
         </p>
-        <input style={{ border: "1px solid black" }} onChange={onChange} />
-        <button onClick={onClick}>Reset Search</button>
+        <span className="banner-cta" onClick={handleBannerCtaClick}>{BANNER_CTA}</span>
       </div>
-      <br />
-      <br />
-      <table>
-        <thead>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>City</th>
-          <th>Degree</th>
-          <th>Specialties</th>
-          <th>Years of Experience</th>
-          <th>Phone Number</th>
-        </thead>
-        <tbody>
-          {filteredAdvocates.map((advocate) => {
-            return (
-              <tr>
-                <td>{advocate.firstName}</td>
-                <td>{advocate.lastName}</td>
-                <td>{advocate.city}</td>
-                <td>{advocate.degree}</td>
-                <td>
-                  {advocate.specialties.map((s) => (
-                    <div>{s}</div>
-                  ))}
-                </td>
-                <td>{advocate.yearsOfExperience}</td>
-                <td>{advocate.phoneNumber}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </main>
+      <main className="advocates-page-root">
+        <div className="page-logo">
+          <Logo/>
+        </div>
+        <h1>{ADVOCATES_PAGE_TITLE}</h1>
+        <div className="search-area">
+          <input
+            type="text"
+            placeholder={SEARCH_PLACEHOLDER}
+            value={searchValue}
+            onChange={onSearchChange}
+          />
+          <button className="primary-button" onClick={resetSearch}>Reset Search</button>
+        </div>
+        <Table
+          data={filteredAdvocates}
+          columns={SOLACE_ADVOCATES_TABLE_HEADERS}
+          rowsPerPageOptions={[5, 10, 15]}
+        />
+      </main>
+      <div className="banner-green"></div>
+    </>
   );
 }
+
+
+

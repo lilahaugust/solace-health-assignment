@@ -1,0 +1,128 @@
+@font-face {
+    font-family: 'Mollie Glaston';
+    src: url('/fonts/mollie-glaston.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+.root {
+    background: linear-gradient(315deg, hsla(120, 41%, 97%, 1) 0%, hsla(0, 0%, 100%, 1) 20%);
+    min-height: 100vh;
+    min-width: 100vw;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+  }
+
+h1 {
+    color: #000000;
+    font-size: 66px;
+    font-family: 'Mollie Glaston', serif;
+    font-weight: 500;
+    height: 0px;
+    display: flex;
+    align-items: center;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    font-weight: 200;
+    color: #4E4E4E;
+}
+
+.page-logo {
+    width: 170px;
+    height: auto;
+}
+
+input {
+    font-family: 'Lato', sans-serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: #4E4E4E;
+    width: 40%;
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid #4E4E4E;
+    padding-left: 10px
+
+}
+
+.search-area {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+}
+
+.primary-button {
+    font-family: 'Lato', sans-serif;
+    color: #000;
+    text-align: center;
+    background-color: #d7a13b;
+    background-image: linear-gradient(45deg, #deb260, #d39009);
+    border-radius: 10px;
+    border: none;
+    padding: 1rem 4.5rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 150%;
+    transition: bottom .2s, box-shadow .2s;
+    position: relative;
+    bottom: 0;
+    box-shadow: 0 2px 17px 2px #afc8bf4d, inset 0 2px 4.7px #fff6;
+
+}
+
+.primary-button:hover {
+    transform: translateY(-7px);
+    mix-blend-mode: darken;
+    background-image: linear-gradient(45deg, #3f937c, #d4e2dd4d 100%, #deb260);
+    background-clip: border-box;
+    position: relative;
+    bottom: 4px;
+    box-shadow: 3px 0 17px 2px #afc8bf4d, inset 0 3px 4.7px #fff6;
+    cursor: pointer;
+}
+
+.transparent-button {
+    color: #3f937c;
+    background-color: transparent;
+    border: none;
+}
+
+.advocates-page-root {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 2rem;
+    padding-left: 13rem;
+    padding-right: 13rem;
+}
+
+.banner-green {
+    width: 100%;
+    background-color: #265b4e;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: 200;
+    gap: 3rem;
+}
+
+.banner-cta {
+    text-decoration: underline;
+    font-weight: 400;
+}
+
+.banner-cta:hover {
+    cursor: pointer
+}
+
+.banner-gold {
+    width: 100%;
+    background-color: #D7A13B;
+    height: 4rem;
+}
