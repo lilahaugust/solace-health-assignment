@@ -1,12 +1,12 @@
-## Time limit and future considerations
+# Time limit and future considerations
 
-# I used the 2 hours primarily to:
+## I used the 2 hours primarily to:
 - Create the UI
 - Clean up file structure & type errors
 - Implement a reusable table structure that supports flexible content mapping
 - Implement pagination on the frontend
 
-# What I would do with more time:
+## What I would do with more time:
 - Add limit and offset to the backend configuration to make pagination fully functional and improve performance at a production level
 - Standardize CSS rules across the repo (either remove Tailwind config or change from modular CSS files to Tailwind)
 - Split the assignment into smaller PRs:
