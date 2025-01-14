@@ -9,11 +9,6 @@
     border-radius: 50px;
     border: 1px solid #000000
 }
-
-.table-root {
-    font-family: 'Lato', sans-serif;
-    border-radius: 20px;
-  }
   
   .table-root thead th {
     font-family: inherit;

@@ -2,22 +2,23 @@
 
 import React, { useEffect, useState } from "react";
 import Table from "./components/Table/Table";
-import { SOLACE_ADVOCATES_TABLE_HEADERS, ADVOCATES_PAGE_TITLE, SEARCH_PLACEHOLDER, BANNER_TEXT, BANNER_CTA, EMAIL_SUBJECT_LINE } from "./constants";
-import { AdvocateType } from "./types";
+import { SOLACE_ADVOCATES_FORMATTED_TABLE_HEADERS, ADVOCATES_PAGE_TITLE, SEARCH_PLACEHOLDER, BANNER_TEXT, BANNER_CTA, EMAIL_SUBJECT_LINE, RESET_SEARCH } from "./constants/page";
+import { formatAdvocates, AdvocateType, FormattedAdvocateType } from "./utils/formatAdvocates";
 import "./page.css";
 import Logo from "../../public/Logo";
 
 export default function Home() {
-  const [advocates, setAdvocates] = useState<AdvocateType[]>([]);
-  const [filteredAdvocates, setFilteredAdvocates] = useState<AdvocateType[]>([]);
+  const [advocates, setAdvocates] = useState<FormattedAdvocateType[]>([]);
+  const [filteredAdvocates, setFilteredAdvocates] = useState<FormattedAdvocateType[]>([]);
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     fetch("/api/advocates").then((response) =>
       response.json().then((jsonResponse) => {
         const data: AdvocateType[] = jsonResponse.data;
-        setAdvocates(data);
-        setFilteredAdvocates(data);
+        const formattedData = formatAdvocates(data);
+        setAdvocates(formattedData);
+        setFilteredAdvocates(formattedData);
       })
     );
   }, []);
@@ -60,11 +61,15 @@ export default function Home() {
           {BANNER_TEXT}
         </p>
         <span className="banner-cta" onClick={handleBannerCtaClick}>{BANNER_CTA}</span>
+        <img src="https://cdn.prod.website-files.com/632a21d0ec93a082b11988a0/65d57a0fdb320cede78a4e8a_icon-arrow-right-white.svg" loading="lazy" width="15" alt=""></img>
       </div>
-      <main className="advocates-page-root">
-        <div className="page-logo">
-          <Logo/>
+      <div className="advocates-page-root">
+        <div className="nav-wrapper">
+          <div className="page-logo">
+            <Logo/>
+          </div>
         </div>
+        <div className="paper">
         <h1>{ADVOCATES_PAGE_TITLE}</h1>
         <div className="search-area">
           <input
@@ -73,15 +78,15 @@ export default function Home() {
             value={searchValue}
             onChange={onSearchChange}
           />
-          <button className="primary-button" onClick={resetSearch}>Reset Search</button>
+          <button className="primary-button" onClick={resetSearch}>{RESET_SEARCH}</button>
         </div>
         <Table
           data={filteredAdvocates}
-          columns={SOLACE_ADVOCATES_TABLE_HEADERS}
+          columns={SOLACE_ADVOCATES_FORMATTED_TABLE_HEADERS}
           rowsPerPageOptions={[5, 10, 15]}
         />
-      </main>
-      <div className="banner-green"></div>
+        </div>
+      </div>
     </>
   );
 }

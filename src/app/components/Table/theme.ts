@@ -1,6 +1,4 @@
-export const TableTheme = {
-    
-}
+// Style conventions for Material UI
 
 export const TablePaginationTheme = {
     ".MuiTablePagination-root": {
