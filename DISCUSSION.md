@@ -29,7 +29,7 @@ Hard-coding string values into the page prevents normally flexible elements insi
 
 ## Table updates: mapping, reusability, pagination, and expandable rows
 
-Rather than hard-coding a single-use table, I have opted to use a table from Material UI. I have designed it to be reusable, flexible, and more performant. 
+I have replaced the hard-coded, single use table with a table from Material UI. I have designed it to be reusable, flexible, and more performant. 
 
 The table can accept any table headers object matching the structure of the SOLACE_ADVOCATES_TABLE_HEADERS constant (should have properties 'id', 'label', and 'minWidth') and map the assigned headers to the corresponding database results. The safe typing I have implemented in the Table file also ensures that the shape of the database result objects (in this case "advocates") must match the properties of the assigned table headers object.
 
@@ -45,6 +45,4 @@ Although not completely necessary for the current scope of the repository, I imp
 
 ## Styling
 
-I opted not to use Tailwind CSS, since I personally prefer ther use of modular CSS files for readability and reusability. 
-
-I derived the styles from the solace.health website.
+I took inspiration for the style from the solace.health landing page. I opted not to use Tailwind CSS, since I personally prefer the use of modular CSS files for readability and reusability. With more time, I would want to further standardize styling conventions across the repo by creating using a CSS preprocessor (Sass or similar) to implement a central file for colors, font families & sizes, etc. 

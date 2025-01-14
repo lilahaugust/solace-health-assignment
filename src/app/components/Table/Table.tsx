@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { TablePaginationTheme } from "./theme";
 import "./Table.css";
 
 interface ColumnConfig {
@@ -125,6 +126,7 @@ export default function ReusableTable<T>({
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={TablePaginationTheme}
         />
       </Paper>
       </div>
