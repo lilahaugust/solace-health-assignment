@@ -87,10 +87,10 @@ export default function ReusableTable<T>({
                               <>
                                 {isExpanded
                                   ? value.map((item, idx) => <div key={idx}>{item}</div>)
-                                  : value.slice(0, 3).map((item, idx) => (
+                                  : value.slice(0, 2).map((item, idx) => (
                                       <div key={idx}>{item}</div>
                                     ))}
-                                {value.length > 3 && (
+                                {value.length > 2 && (
                                   <button
                                     onClick={() => toggleRowExpansion(rowIndex)}
                                     style={{
