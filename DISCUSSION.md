@@ -7,7 +7,7 @@
 - Implement pagination on the frontend
 
 ## PR Structure:
-I created a couple of PRs on the frontend which I merged into main. I left a couple of PRs for the backend open.
+I created a couple of PRs on the frontend which I merged into main. I left a PR for the backend open.
 
 ## What I would do with more time:
 - Add limit and offset to the backend configuration for fetching advocates
