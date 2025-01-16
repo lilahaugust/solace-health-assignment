@@ -5,16 +5,17 @@
 - Clean up file structure & type errors
 - Implement a reusable table structure that supports flexible content mapping
 - Implement pagination on the frontend
+- Add type safety and error handling to the API/server
 
 ## What I would do with more time:
 - Add limit and offset to the backend configuration for fetching advocates
 - Standardize CSS rules across the repo (either remove Tailwind config or change from modular CSS files to Tailwind)
-- Split the assignment into smaller PRs:
-    - TS typing
-    - String literal migration into constants file
-    - Styling
-    - Reusable table implementation
-    - Pagination (frontend and backend)
+- Split the assignment into smaller PRs
+- Configure pagination on the server
+
+
+# PR Structure:
+I created a couple of PRs on the frontend which I merged into main. I left a PR for the backend open
 
 
 # Cleanup
@@ -25,7 +26,11 @@ Although not functional on the backend, I chose to partially implement paginatio
 
 ## Type safety
 
-The page.tsx file is technically TypeScript, but the page had a lot of type errors due to essential values not being typed - such as the 'advocate' object representing a single database record. I have created some reusable types living in a relevant file in the utils folder. Where applicable, I've applied single-use inline typing.
+The page.tsx file is technically TypeScript, but the page had a lot of type errors due to essential values not being typed - such as the 'advocate' object representing a single database record or the type of the database object. I have created some reusable types living in a relevant file in the utils folder. Where applicable, I've applied single-use inline typing.
+
+## Error handling
+
+A lot of the server side code didn't have error handling, so I implemented some DRY code for the API & server that logs errors at multiple steps to make debugging easier. These edits are in the open PR. With more time I'd make the error handling more robust and make sure it was implemented in all API routes.
 
 ## Constants file
 
