@@ -1,9 +1,24 @@
-import db from "../../../db";
-import { advocates } from "../../../db/schema";
-import { advocateData } from "../../../db/seed/advocates";
+import { drizzle, PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 
-export async function POST() {
-  const records = await db.insert(advocates).values(advocateData).returning();
+const setup = (): PostgresJsDatabase => {
+  if (!process.env.DATABASE_URL) {
+    console.error("DATABASE_URL is not set");
 
-  return Response.json({ advocates: records });
-}
+    return {
+      insert: () => {
+        throw new Error("Database is not configured");
+      },
+      select: () => {
+        throw new Error("Database is not configured");
+      },
+    } as unknown as PostgresJsDatabase;
+  }
+
+  // for query purposes
+  const queryClient = postgres(process.env.DATABASE_URL);
+  const db = drizzle(queryClient);
+  return db;
+};
+
+export default setup();
